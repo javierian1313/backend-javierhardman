@@ -1,0 +1,24 @@
+version: '3.9'
+services:
+    backend-javierhardman:
+        container_name: backend-javierhardman
+        ports:
+            - 3000:3000
+        image: backend-javierhardman:latest
+        networks:
+            databases:
+                ipv4_address: '${DATABASES_BACKEND}'
+            nginxproxymanager:
+                ipv4_address: '${NGINXPROXYMANAGER_BACKEND}'
+        restart: unless-stopped
+        environment:
+            MYSQL_DATABASE: '${MYSQL_DATABASE}'
+            MYSQL_HOST: '${MYSQL_HOST}'
+            MYSQL_PASSWORD: '${MYSQL_PASSWORD}'
+            MYSQL_USER: '${MYSQL_USER}'
+            PORT: '${PORT}'
+networks:
+    databases:
+        external: true
+    nginxproxymanager:
+        external: true
